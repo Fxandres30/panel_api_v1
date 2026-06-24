@@ -1,0 +1,18 @@
+.sticker-row{
+  display:flex;
+  width:100%;
+}
+
+.sticker-row.left{
+  justify-content:flex-start;
+}
+
+.sticker-row.right{
+  justify-content:flex-end;
+}
+
+.chat-sticker{
+  width:140px;
+  height:auto;
+  display:block;
+}

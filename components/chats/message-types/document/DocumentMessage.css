@@ -1,0 +1,65 @@
+.document-row{
+  width:100%;
+  display:flex;
+  margin-bottom:10px;
+}
+
+.document-row.left{
+  justify-content:flex-start;
+}
+
+.document-row.right{
+  justify-content:flex-end;
+}
+
+.document-card{
+
+  width:320px;
+
+  display:flex;
+  gap:12px;
+
+  align-items:center;
+
+  background:white;
+
+  padding:14px;
+
+  border-radius:14px;
+
+  text-decoration:none;
+
+  color:#111827;
+
+  box-shadow:
+  0 2px 8px rgba(0,0,0,.08);
+
+}
+
+.document-icon{
+  font-size:32px;
+}
+
+.document-info{
+  flex:1;
+}
+
+.document-name{
+
+  font-size:14px;
+
+  font-weight:600;
+
+  word-break:break-word;
+
+}
+
+.document-download{
+
+  margin-top:4px;
+
+  font-size:12px;
+
+  color:#2563eb;
+
+}

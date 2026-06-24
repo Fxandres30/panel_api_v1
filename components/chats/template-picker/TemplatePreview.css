@@ -1,0 +1,104 @@
+.template-preview {
+
+  background: #ffffff;
+
+  border-radius: 16px;
+
+  margin: 10px;
+
+  padding: 16px;
+
+  box-shadow:
+    0 2px 12px
+    rgba(0,0,0,.08);
+
+  border:
+    1px solid #e8edf2;
+
+}
+
+.template-preview-badge {
+
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  color: #667781;
+
+  background: #f5f7f8;
+
+  padding: 5px 10px;
+
+  border-radius: 999px;
+
+  margin-bottom: 12px;
+
+}
+
+.template-preview-name {
+
+  font-size: 17px;
+
+  font-weight: 700;
+
+  color: #111b21;
+
+  margin-bottom: 10px;
+
+}
+
+.template-preview-text {
+
+  font-size: 14px;
+
+  line-height: 1.5;
+
+  color: #667781;
+
+  margin-bottom: 16px;
+
+}
+
+.template-send-button {
+
+  width: 100%;
+
+  height: 46px;
+
+  border: none;
+
+  border-radius: 12px;
+
+  background: #25d366;
+
+  color: white;
+
+  font-size: 15px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: .2s;
+
+}
+
+.template-send-button:hover {
+
+  transform: translateY(-1px);
+
+  opacity: .95;
+
+}
+
+.template-send-button:active {
+
+  transform: scale(.98);
+
+}

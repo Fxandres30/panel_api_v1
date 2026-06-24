@@ -1,0 +1,52 @@
+.location-row{
+  width:100%;
+  display:flex;
+  margin-bottom:10px;
+}
+
+.location-row.left{
+  justify-content:flex-start;
+}
+
+.location-row.right{
+  justify-content:flex-end;
+}
+
+.location-card{
+
+  position:relative;
+
+  width:280px;
+
+  padding:14px;
+
+  background:white;
+
+  border-radius:14px;
+
+  text-decoration:none;
+
+  color:#111827;
+
+  box-shadow:
+  0 2px 8px rgba(0,0,0,.08);
+
+  overflow:visible;
+}
+.location-title{
+
+  font-size:15px;
+
+  font-weight:700;
+
+  margin-bottom:8px;
+
+}
+
+.location-coords{
+
+  font-size:13px;
+
+  color:#64748b;
+
+}

@@ -1,0 +1,34 @@
+.reaction-row{
+  display:flex;
+  width:100%;
+  margin:4px 0;
+}
+
+.reaction-row.left{
+  justify-content:flex-start;
+}
+
+.reaction-row.right{
+  justify-content:flex-end;
+}
+
+.reaction-bubble{
+
+  width:42px;
+  height:42px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:24px;
+
+  background:white;
+
+  border-radius:50%;
+
+  box-shadow:
+    0 2px 8px
+    rgba(0,0,0,.12);
+
+}
