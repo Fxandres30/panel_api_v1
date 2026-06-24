@@ -4,9 +4,6 @@ type Props = {
   archivo?: File | null;
 };
 
-const API_URL =
-  "http://209.38.77.179:3001";
-
 export async function sendMessage({
   telefono,
   mensaje,
@@ -34,7 +31,7 @@ export async function sendMessage({
     );
 
     return fetch(
-      `${API_URL}/meta/send-media`,
+      "/api/send-message",
       {
         method: "POST",
         body: formData,
@@ -44,7 +41,7 @@ export async function sendMessage({
   }
 
   return fetch(
-    `${API_URL}/meta/send-message`,
+    "/api/send-message",
     {
       method: "POST",
 
