@@ -2,35 +2,25 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import "./login.css";
 
 export default function LoginPage() {
-  const [password, setPassword] =
-    useState("");
-
-  const [error, setError] =
-    useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const router = useRouter();
 
   async function login() {
-    const res = await fetch(
-      "/api/login",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type":
-            "application/json",
-        },
-        body: JSON.stringify({
-          password,
-        }),
-      }
-    );
+    const res = await fetch("/api/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ password }),
+    });
 
     if (!res.ok) {
-      setError(
-        "Contraseña incorrecta"
-      );
+      setError("Contraseña incorrecta");
       return;
     }
 
@@ -38,33 +28,43 @@ export default function LoginPage() {
   }
 
   return (
-    <div
-      style={{
-        height: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <div>
+    <div className="login-page">
+      <div className="login-card">
+
+        <div className="login-logo">
+          🎯
+        </div>
+
         <h1>EFAAT CRM</h1>
+
+        <p>
+          Acceso privado al panel administrativo
+        </p>
 
         <input
           type="password"
-          placeholder="Contraseña"
+          placeholder="Ingresa tu contraseña"
           value={password}
           onChange={(e) =>
-            setPassword(
-              e.target.value
-            )
+            setPassword(e.target.value)
           }
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              login();
+            }
+          }}
         />
 
         <button onClick={login}>
-          Entrar
+          Ingresar
         </button>
 
-        {error && <p>{error}</p>}
+        {error && (
+          <div className="error">
+            {error}
+          </div>
+        )}
+
       </div>
     </div>
   );
