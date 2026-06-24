@@ -152,7 +152,7 @@ const [
     )
   }
 >
-  📝
+  📝/
 </button>
 
         <button
