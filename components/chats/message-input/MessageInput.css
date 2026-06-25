@@ -1,128 +1,108 @@
-.message-input-container {
-
-  background: #202c33;
-
-  border-top: 1px solid #2a3942;
-
-  padding: 12px;
-
-  flex-shrink: 0;
+.message-input-container{
+  background:#202c33;
+  border-top:1px solid #2a3942;
+  padding:10px 12px;
+  flex-shrink:0;
 }
 
-.file-preview {
-
-  background: #2a3942;
-
-  color: #e9edef;
-
-  padding: 10px 14px;
-
-  border-radius: 10px;
-
-  margin-bottom: 10px;
-
-  font-size: 14px;
+.file-preview{
+  background:#2a3942;
+  color:#e9edef;
+  padding:10px 14px;
+  border-radius:10px;
+  margin-bottom:10px;
+  font-size:14px;
 }
 
-.message-input-row {
-
-  display: flex;
-
-  align-items: center;
-
-  gap: 10px;
+.file-preview-name{
+  display:flex;
+  align-items:center;
+  gap:8px;
 }
 
-.attach-button {
-
-  width: 42px;
-
-  height: 42px;
-
-  border: none;
-
-  border-radius: 50%;
-
-  background: transparent;
-
-  color: #8696a0;
-
-  cursor: pointer;
-
-  font-size: 22px;
-
-  transition: .2s;
+.message-input-row{
+  display:flex;
+  align-items:center;
+  gap:8px;
 }
 
-.attach-button:hover {
+/* Plantillas y Adjuntar */
 
-  background: #2a3942;
+.template-button,
+.attach-button{
+  width:40px;
+  height:40px;
+  border:none;
+  background:transparent;
+  color:#8696a0;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  transition:.2s;
 }
 
-.message-input {
-
-  flex: 1;
-
-  height: 44px;
-
-  border: none;
-
-  outline: none;
-
-  border-radius: 24px;
-
-  padding: 0 16px;
-
-  background: #2a3942;
-
-  color: #fff;
-
-  font-size: 14px;
+.template-button:hover,
+.attach-button:hover{
+  background:#2a3942;
+  color:#e9edef;
 }
 
-.message-input::placeholder {
+/* Caja del mensaje */
 
-  color: #8696a0;
+.message-input{
+  flex:1;
+  height:42px;
+  border:none;
+  outline:none;
+  border-radius:22px;
+  padding:0 16px;
+  background:#2a3942;
+  color:#fff;
+  font-size:14px;
 }
 
-.send-button {
-
-  width: 44px;
-
-  height: 44px;
-
-  border: none;
-
-  border-radius: 50%;
-
-  background: #00a884;
-
-  color: white;
-
-  cursor: pointer;
-
-  font-size: 18px;
-
-  font-weight: bold;
-
-  transition: .2s;
+.message-input::placeholder{
+  color:#8696a0;
 }
 
-.send-button:hover {
+/* Botón enviar */
 
-  transform: scale(1.05);
+.send-button{
+  width:44px;
+  height:44px;
+  border:none;
+  border-radius:50%;
+  background:#00a884;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  transition:.2s;
 }
 
-@media (max-width: 768px) {
+.send-button:hover{
+  background:#06b48f;
+  transform:scale(1.05);
+}
 
-  .message-input-container {
+.send-button svg,
+.attach-button svg,
+.template-button svg{
+  width:20px;
+  height:20px;
+}
 
-    padding: 8px;
+@media(max-width:768px){
+
+  .message-input-container{
+    padding:8px;
   }
 
-  .message-input {
-
-    font-size: 16px;
+  .message-input{
+    font-size:16px;
   }
 
 }

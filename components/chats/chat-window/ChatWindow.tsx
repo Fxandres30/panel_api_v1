@@ -1,5 +1,10 @@
 "use client";
 
+import {
+  ArrowLeft,
+  MoreVertical,
+} from "lucide-react";
+
 import { supabase }
 from "@/lib/supabase";
 
@@ -163,42 +168,59 @@ export default function ChatWindow({
 
   }
 
+  const [fotoPerfil, setFotoPerfil] =
+  useState<string | null>(null);
+
   return (
 
     <div className="chat-window">
 
       <div className="chat-header">
 
-        <button
-          className="back-button"
-          onClick={onBack}
-        >
-          ←
-        </button>
+  <button
+    className="back-button"
+    onClick={onBack}
+  >
+    <ArrowLeft size={22}/>
+  </button>
 
-        <div className="chat-header-avatar">
-          👤
-        </div>
+  <div className="chat-header-avatar">
 
-        <div className="chat-header-info">
+  {fotoPerfil ? (
 
-          <div className="chat-header-name">
-            {telefono}
-          </div>
+    <img
+      src={fotoPerfil}
+      alt=""
+      className="chat-avatar-image"
+    />
 
-          <div className="chat-header-status">
-            Conversación activa
-          </div>
+  ) : (
 
-        </div>
+    <span>
+      {telefono.slice(-2)}
+    </span>
 
-        <button
-          className="info-button"
-        >
-          ℹ️
-        </button>
+  )}
 
-      </div>
+</div>
+
+  <div className="chat-header-info">
+
+    <div className="chat-header-name">
+      {telefono}
+    </div>
+
+    <div className="chat-header-status">
+      Conversación activa
+    </div>
+
+  </div>
+
+  <button className="info-button">
+    <MoreVertical size={20}/>
+</button>
+
+</div>
 
       <MessagesList
         messages={messages}

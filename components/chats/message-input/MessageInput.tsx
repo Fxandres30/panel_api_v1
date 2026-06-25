@@ -1,5 +1,12 @@
 "use client";
 
+import {
+  SendHorizontal,
+  Paperclip,
+  UserRound,
+  MessageSquareText,
+} from "lucide-react";
+
 import "./MessageInput.css";
 
 import { useRef, useState } from "react";
@@ -81,9 +88,10 @@ const [
 
         <div className="file-preview">
 
-          <span>
-            📎 {archivo.name}
-          </span>
+          <div className="file-preview-name">
+  <Paperclip size={16} />
+  <span>{archivo.name}</span>
+</div>
 
         </div>
 
@@ -144,25 +152,23 @@ const [
 
       <div className="message-input-row">
 
-        <button
+      <button
   className="template-button"
   onClick={() =>
-    setShowTemplates(
-      !showTemplates
-    )
+    setShowTemplates(!showTemplates)
   }
 >
-  📝/
+  <MessageSquareText size={20} />
 </button>
 
         <button
-          className="attach-button"
-          onClick={() =>
-            fileInputRef.current?.click()
-          }
-        >
-          📎
-        </button>
+  className="attach-button"
+  onClick={() =>
+    fileInputRef.current?.click()
+  }
+>
+  <Paperclip size={20} />
+</button>
 
         <input
           ref={fileInputRef}
@@ -201,11 +207,11 @@ const [
         />
 
         <button
-          className="send-button"
-          onClick={enviar}
-        >
-          ➤
-        </button>
+  className="send-button"
+  onClick={enviar}
+>
+  <SendHorizontal size={20} />
+</button>
 
       </div>
 
