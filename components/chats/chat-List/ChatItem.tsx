@@ -70,8 +70,8 @@ export default function ChatItem({
     >
 
       <div className="chat-avatar">
-        👤
-      </div>
+  {telefono?.slice(-2) || "--"}
+</div>
 
       <div className="chat-info">
 

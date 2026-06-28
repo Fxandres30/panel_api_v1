@@ -86,16 +86,45 @@ const [
 
       {archivo && (
 
-        <div className="file-preview">
+  <div className="file-preview">
 
-          <div className="file-preview-name">
-  <Paperclip size={16} />
-  <span>{archivo.name}</span>
-</div>
+    {archivo.type.startsWith("image/") ? (
 
-        </div>
+      <div className="image-preview">
 
-      )}
+        <img
+          src={URL.createObjectURL(archivo)}
+          alt="Vista previa"
+          className="preview-image"
+        />
+
+        <button
+          className="remove-preview"
+          onClick={() => {
+            setArchivo(null);
+
+            if (fileInputRef.current) {
+              fileInputRef.current.value = "";
+            }
+          }}
+        >
+          ✕
+        </button>
+
+      </div>
+
+    ) : (
+
+      <div className="file-preview-name">
+        <Paperclip size={16} />
+        <span>{archivo.name}</span>
+      </div>
+
+    )}
+
+  </div>
+
+)}
 
 {showTemplates && (
 

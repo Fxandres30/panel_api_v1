@@ -1,0 +1,231 @@
+.new-chat-overlay{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.45);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    backdrop-filter:blur(4px);
+
+    z-index:5000;
+
+}
+
+.new-chat-modal{
+
+    width:430px;
+
+    background:white;
+
+    border-radius:22px;
+
+    overflow:hidden;
+
+    box-shadow:
+    0 25px 60px rgba(0,0,0,.22);
+
+    animation:modal .25s;
+
+}
+
+@keyframes modal{
+
+from{
+
+opacity:0;
+
+transform:scale(.95);
+
+}
+
+to{
+
+opacity:1;
+
+transform:scale(1);
+
+}
+
+}
+
+.new-chat-header{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+padding:22px;
+
+border-bottom:1px solid #ececec;
+
+}
+
+.new-chat-header h2{
+
+display:flex;
+
+align-items:center;
+
+gap:10px;
+
+margin:0;
+
+font-size:22px;
+
+}
+
+.new-chat-header button{
+
+background:none;
+
+border:none;
+
+cursor:pointer;
+
+}
+
+.new-chat-body{
+
+padding:22px;
+
+display:flex;
+
+flex-direction:column;
+
+gap:18px;
+
+}
+
+.new-chat-body label{
+
+display:flex;
+
+align-items:center;
+
+gap:8px;
+
+font-weight:600;
+
+font-size:14px;
+
+}
+
+.new-chat-body label span{
+
+font-weight:400;
+
+color:#888;
+
+}
+
+.new-chat-body input[type=text],
+.new-chat-body input:not([type=checkbox]){
+
+height:48px;
+
+border-radius:12px;
+
+border:1px solid #d9d9d9;
+
+padding:0 16px;
+
+font-size:15px;
+
+outline:none;
+
+transition:.2s;
+
+}
+
+.new-chat-body input:focus{
+
+border-color:#00a884;
+
+box-shadow:0 0 0 3px rgba(0,168,132,.15);
+
+}
+
+.guardar-contacto{
+
+display:flex;
+
+align-items:center;
+
+gap:10px;
+
+font-size:15px;
+
+}
+
+.new-chat-footer{
+
+display:flex;
+
+justify-content:flex-end;
+
+gap:12px;
+
+padding:20px;
+
+border-top:1px solid #ececec;
+
+}
+
+.cancelar{
+
+background:#ececec;
+
+border:none;
+
+height:44px;
+
+padding:0 20px;
+
+border-radius:10px;
+
+cursor:pointer;
+
+}
+
+.crear{
+
+display:flex;
+
+align-items:center;
+
+gap:8px;
+
+background:#00a884;
+
+color:white;
+
+border:none;
+
+height:44px;
+
+padding:0 22px;
+
+border-radius:10px;
+
+cursor:pointer;
+
+font-weight:600;
+
+transition:.2s;
+
+}
+
+.crear:hover{
+
+background:#029272;
+
+}

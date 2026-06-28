@@ -1,5 +1,7 @@
 "use client";
 
+import { MessageSquarePlus } from "lucide-react";
+
 import "./ChatListHeader.css";
 
 type Props = {
@@ -13,26 +15,34 @@ export default function ChatListHeader({
 }: Props) {
 
   return (
+
     <div className="chat-list-header">
 
-  <div>
+      <div className="chat-list-title">
 
-    <h2>Chats</h2>
+        <h2>Chats</h2>
 
-    <span>
-      {total} conversaciones
-    </span>
+        <span>
+          {total} conversaciones
+        </span>
 
-  </div>
+      </div>
 
-  <button
-    onClick={onNewChat}
-    title="Nuevo chat"
-  >
-    +
-  </button>
+      <button
+        className="new-chat-button"
+        onClick={onNewChat}
+        title="Nuevo chat"
+      >
 
-</div>
+        <MessageSquarePlus
+          size={22}
+          strokeWidth={2.2}
+        />
+
+      </button>
+
+    </div>
+
   );
 
 }

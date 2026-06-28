@@ -5,24 +5,17 @@ import {
   MoreVertical,
 } from "lucide-react";
 
-import { supabase }
-from "@/lib/supabase";
+import { supabase } from "@/lib/supabase";
 
 import { useEffect, useState } from "react";
 
 import "./ChatWindow.css";
 
-import { getMessages }
-from "@/services/chats/getMessages";
+import { getMessages } from "@/services/chats/getMessages";
+import { sendMessage } from "@/services/chats/sendMessage";
 
-import { sendMessage }
-from "@/services/chats/sendMessage";
-
-import MessagesList
-from "./MessagesList";
-
-import MessageInput
-from "../message-input/MessageInput";
+import MessagesList from "./MessagesList";
+import MessageInput from "../message-input/MessageInput";
 
 type Message = {
   id: string;
@@ -46,92 +39,71 @@ export default function ChatWindow({
   const [messages, setMessages] =
     useState<Message[]>([]);
 
+  // Lo dejamos para cuando agregues fotos reales.
+  const [fotoPerfil] =
+    useState<string | null>(null);
+
   useEffect(() => {
 
-  if (!telefono) {
+    if (!telefono) {
+      setMessages([]);
+      return;
+    }
 
-    setMessages([]);
+    cargarMensajes();
 
-    return;
-
-  }
-
-  cargarMensajes();
-
-  const channel =
-    supabase
-      .channel(
-        `chat-${telefono}`
-      )
+    const channel = supabase
+      .channel(`chat-${telefono}`)
       .on(
         "postgres_changes",
         {
           event: "*",
           schema: "public",
-          table: "messages"
+          table: "messages",
         },
         () => {
-
           cargarMensajes();
-
         }
       )
       .subscribe();
 
-  return () => {
+    return () => {
+      supabase.removeChannel(channel);
+    };
 
-    supabase.removeChannel(
-      channel
-    );
-
-  };
-
-}, [telefono]);
+  }, [telefono]);
 
   async function cargarMensajes() {
 
-  if (!telefono) return;
+    if (!telefono) return;
 
-  try {
+    try {
 
-    const data =
-      await getMessages(
-        telefono
-      );
+      const data =
+        await getMessages(telefono);
 
-    setMessages(data);
+      setMessages(data);
 
-    await supabase
-      .from("messages")
-      .update({
-        leido: true
-      })
-      .eq(
-        "telefono",
-        telefono
-      )
-      .eq(
-        "from_me",
-        false
-      )
-      .eq(
-        "leido",
-        false
-      );
+      await supabase
+        .from("messages")
+        .update({
+          leido: true,
+        })
+        .eq("telefono", telefono)
+        .eq("from_me", false)
+        .eq("leido", false);
+
+    } catch (error) {
+
+      console.error(error);
+
+    }
 
   }
-
-  catch (error) {
-
-    console.error(error);
-
-  }
-
-}
 
   async function handleSend(
     mensaje: string,
-    archivo?: File | null
+    archivo?: File |null
   ) {
 
     if (!telefono) return;
@@ -139,18 +111,14 @@ export default function ChatWindow({
     try {
 
       await sendMessage({
-
         telefono,
         mensaje,
-        archivo
-
+        archivo,
       });
 
       await cargarMensajes();
 
-    }
-
-    catch (error) {
+    } catch (error) {
 
       console.error(error);
 
@@ -168,68 +136,65 @@ export default function ChatWindow({
 
   }
 
-  const [fotoPerfil, setFotoPerfil] =
-  useState<string | null>(null);
-
   return (
 
     <div className="chat-window">
 
       <div className="chat-header">
 
-  <button
-    className="back-button"
-    onClick={onBack}
-  >
-    <ArrowLeft size={22}/>
-  </button>
+        <button
+          className="back-button"
+          onClick={onBack}
+        >
+          <ArrowLeft size={22} />
+        </button>
 
-  <div className="chat-header-avatar">
+        <div className="chat-header-avatar">
 
-  {fotoPerfil ? (
+          {fotoPerfil ? (
 
-    <img
-      src={fotoPerfil}
-      alt=""
-      className="chat-avatar-image"
-    />
+            <img
+              src={fotoPerfil}
+              alt=""
+              className="chat-avatar-image"
+            />
 
-  ) : (
+          ) : (
 
-    <span>
-      {telefono.slice(-2)}
-    </span>
+            <span>
+              {telefono.slice(-2)}
+            </span>
 
-  )}
+          )}
 
-</div>
+        </div>
 
-  <div className="chat-header-info">
+        <div className="chat-header-info">
 
-    <div className="chat-header-name">
-      {telefono}
-    </div>
+          <div className="chat-header-name">
+            {telefono}
+          </div>
 
-    <div className="chat-header-status">
-      Conversación activa
-    </div>
+          <div className="chat-header-status">
+            Conversación activa
+          </div>
 
-  </div>
+        </div>
 
-  <button className="info-button">
-    <MoreVertical size={20}/>
-</button>
+        <button className="info-button">
+          <MoreVertical size={20} />
+        </button>
 
-</div>
+      </div>
 
       <MessagesList
         messages={messages}
       />
 
       <MessageInput
-  telefono={telefono}
-  onSend={handleSend}
-/>
+        telefono={telefono}
+        onSend={handleSend}
+      />
 
     </div>
 

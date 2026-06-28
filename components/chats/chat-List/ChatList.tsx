@@ -7,6 +7,7 @@ import "./ChatList.css";
 import ChatListHeader from "./ChatListHeader";
 import ChatSearch from "./ChatSearch";
 import ChatItem from "./ChatItem";
+import NewChatModal from "./NewChatModal";
 
 import { supabase } from "@/lib/supabase";
 
@@ -92,6 +93,9 @@ export default function ChatList({
 
   const [chats, setChats] =
     useState<ChatResumen[]>([]);
+
+    const [openNewChat, setOpenNewChat] =
+  useState(false);
 
   useEffect(() => {
 
@@ -267,15 +271,11 @@ export default function ChatList({
     <div className="chat-list">
 
       <ChatListHeader
-        total={
-          filteredChats.length
-        }
-        onNewChat={() =>
-          alert(
-            "Nuevo chat"
-          )
-        }
-      />
+  total={filteredChats.length}
+  onNewChat={() =>
+    setOpenNewChat(true)
+  }
+/>
 
       <ChatSearch
         search={search}
@@ -324,6 +324,30 @@ export default function ChatList({
         )}
 
       </div>
+
+      <NewChatModal
+  open={openNewChat}
+  onClose={() =>
+    setOpenNewChat(false)
+  }
+  onCreate={(
+    telefono,
+    nombre,
+    guardar
+  ) => {
+
+    console.log({
+      telefono,
+      nombre,
+      guardar,
+    });
+
+    onSelect(telefono);
+
+    setOpenNewChat(false);
+
+  }}
+/>
 
     </div>
 
