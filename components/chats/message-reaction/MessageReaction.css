@@ -2,28 +2,50 @@
 
   position:absolute;
 
-  right:-10px;
-  bottom:-12px;
-
-  min-width:28px;
-  height:28px;
-
   display:flex;
   align-items:center;
   justify-content:center;
 
-  padding:2px 6px;
+  min-width:24px;
+  height:24px;
 
-  background:#ffffff;
+  padding:2px 5px;
 
   border-radius:999px;
 
-  font-size:18px;
+  background:#fff;
 
-  box-shadow:
-    0 2px 8px
-    rgba(0,0,0,.15);
+  box-shadow:0 2px 6px rgba(0,0,0,.18);
 
-  z-index:20;
+  font-size:15px;
+
+  z-index:5;
+
+}
+
+/* Texto */
+
+.reaction-text{
+
+  right:8px;
+  bottom:-10px;
+
+}
+
+/* Imagen */
+
+.reaction-image{
+
+  right:8px;
+  bottom:-10px;
+
+}
+
+/* Imagen con texto */
+
+.reaction-image-caption{
+
+  right:8px;
+  bottom:-10px;
 
 }

@@ -85,9 +85,13 @@ export default function ImageMessage({
 </div>
 
         <MessageReaction
-          reaction={message.reaction}
-        />
-
+  reaction={message.reaction}
+  className={
+    mostrarCaption
+      ? "reaction-image-caption"
+      : "reaction-image"
+  }
+/>
       </div>
 
     </div>
