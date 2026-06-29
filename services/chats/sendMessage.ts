@@ -12,38 +12,67 @@ export async function sendMessage({
 
   if (archivo) {
 
-  const formData = new FormData();
+    const formData = new FormData();
 
-  formData.append("telefono", telefono);
-  formData.append("mensaje", mensaje);
-  formData.append("file", archivo);
+    formData.append("telefono", telefono);
+    formData.append("mensaje", mensaje);
+    formData.append("file", archivo);
 
-  return fetch(
-    "https://efaat.com/meta/send-media",
-    {
-      method: "POST",
-      body: formData,
+    console.log("=========== ENVIANDO MEDIA ===========");
+    console.log("Nombre:", archivo.name);
+    console.log("Tipo:", archivo.type);
+    console.log("Tamaño:", archivo.size);
+
+    const response = await fetch(
+      "https://efaat.com/meta/send-media",
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
+
+    const data = await response.json();
+
+    console.log("RESPUESTA MEDIA:", data);
+
+    if (!response.ok) {
+
+      throw new Error(
+        data.message || "Error enviando archivo"
+      );
+
     }
-  );
 
-}
-    
+    return data;
 
-  return fetch(
+  }
+
+  const response = await fetch(
     "/api/send-message",
     {
       method: "POST",
-
       headers: {
-        "Content-Type":
-          "application/json",
+        "Content-Type": "application/json",
       },
-
       body: JSON.stringify({
         telefono,
         mensaje,
       }),
     }
   );
+
+  const data = await response.json();
+
+  console.log("RESPUESTA TEXTO:", data);
+
+  if (!response.ok) {
+
+    throw new Error(
+      data.message || "Error enviando mensaje"
+    );
+
+  }
+
+  return data;
 
 }
