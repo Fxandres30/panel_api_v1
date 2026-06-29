@@ -1,65 +1,195 @@
 .document-row{
-  width:100%;
-  display:flex;
-  margin-bottom:10px;
+
+    display:flex;
+
+    width:100%;
+
+    margin:8px 0;
+
 }
 
 .document-row.left{
-  justify-content:flex-start;
+
+    justify-content:flex-start;
+
 }
 
 .document-row.right{
-  justify-content:flex-end;
+
+    justify-content:flex-end;
+
+}
+
+.document-bubble{
+
+    position:relative;
+
+    width:320px;
+
+    max-width:90%;
+
+    border-radius:18px;
+
+    overflow:visible;
+
+    background:#fff;
+
+    box-shadow:
+    0 3px 10px rgba(0,0,0,.10);
+
+    transition:.25s;
+
+}
+
+.document-row.right
+.document-bubble{
+
+    background:#d9fdd3;
+
 }
 
 .document-card{
 
-  width:320px;
+    display:flex;
 
-  display:flex;
-  gap:12px;
+    gap:14px;
 
-  align-items:center;
+    align-items:center;
 
-  background:white;
+    padding:14px;
 
-  padding:14px;
+    color:inherit;
 
-  border-radius:14px;
+    text-decoration:none;
 
-  text-decoration:none;
+    transition:.25s;
 
-  color:#111827;
+}
 
-  box-shadow:
-  0 2px 8px rgba(0,0,0,.08);
+.document-card:hover{
+
+    background:rgba(0,0,0,.03);
 
 }
 
 .document-icon{
-  font-size:32px;
+
+    width:60px;
+
+    height:60px;
+
+    border-radius:14px;
+
+    background:#eef2ff;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:34px;
+
+    flex-shrink:0;
+
 }
 
 .document-info{
-  flex:1;
+
+    flex:1;
+
+    min-width:0;
+
 }
 
 .document-name{
 
-  font-size:14px;
+    font-size:15px;
 
-  font-weight:600;
+    font-weight:700;
 
-  word-break:break-word;
+    color:#111;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+    white-space:nowrap;
+
+}
+
+.document-type{
+
+    margin-top:3px;
+
+    font-size:11px;
+
+    color:#7d8b99;
+
+    text-transform:uppercase;
+
+    letter-spacing:.4px;
+
+}
+
+.document-size{
+
+    margin-top:3px;
+
+    font-size:12px;
+
+    color:#667781;
 
 }
 
 .document-download{
 
-  margin-top:4px;
+    margin-top:10px;
 
-  font-size:12px;
+    font-size:13px;
 
-  color:#2563eb;
+    color:#00a884;
+
+    font-weight:600;
+
+}
+
+.document-caption{
+
+    padding:0 14px 10px;
+
+    font-size:14px;
+
+    line-height:1.5;
+
+    color:#111;
+
+    word-break:break-word;
+
+}
+
+.document-footer{
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    align-items:center;
+
+    gap:4px;
+
+    padding:4px 12px 10px;
+
+    font-size:11px;
+
+    color:#667781;
+
+}
+
+.document-time{
+
+    display:flex;
+
+    align-items:center;
 
 }

@@ -31,38 +31,20 @@ function obtenerPreview(
   msg: any
 ) {
 
-  if (msg.tipo === "image") {
-    return "🖼️ Foto";
-  }
+  const texto =
+    (msg.mensaje || "").trim();
 
-  if (msg.tipo === "video") {
-    return "🎥 Video";
-  }
-
-  if (msg.tipo === "audio") {
-    return "🎤 Audio";
-  }
-
-  if (msg.tipo === "document") {
-    return "📄 Documento";
-  }
-
-  if (msg.tipo === "location") {
-    return "📍 Ubicación";
-  }
-
-  if (msg.tipo === "contacts") {
-    return "👤 Contacto";
-  }
+  const tieneTexto =
+    texto &&
+    !texto.startsWith("{") &&
+    !texto.startsWith("[");
 
   if (msg.tipo === "reaction") {
 
     try {
 
       const data =
-        JSON.parse(
-          msg.mensaje
-        );
+        JSON.parse(texto);
 
       return `${data.emoji} Reacción`;
 
@@ -76,10 +58,69 @@ function obtenerPreview(
 
   }
 
-  return (
-    msg.mensaje ||
-    "Sin mensaje"
-  );
+  if (msg.tipo === "image") {
+
+    return tieneTexto
+      ? `🖼️ ${texto}`
+      : "🖼️ Foto";
+
+  }
+
+  if (msg.tipo === "video") {
+
+    return tieneTexto
+      ? `🎥 ${texto}`
+      : "🎥 Video";
+
+  }
+
+  if (msg.tipo === "audio") {
+
+    return tieneTexto
+      ? `🎤 ${texto}`
+      : "🎤 Audio";
+
+  }
+
+  if (msg.tipo === "document") {
+
+    return tieneTexto
+      ? `📄 ${texto}`
+      : "📄 Documento";
+
+  }
+
+  if (msg.tipo === "location") {
+
+    return tieneTexto
+      ? `📍 ${texto}`
+      : "📍 Ubicación";
+
+  }
+
+  if (msg.tipo === "contacts") {
+
+    return tieneTexto
+      ? `👤 ${texto}`
+      : "👤 Contacto";
+
+  }
+
+  if (msg.tipo === "sticker") {
+
+    return "😊 Sticker";
+
+  }
+
+  if (msg.tipo === "gif") {
+
+    return tieneTexto
+      ? `🎞️ ${texto}`
+      : "🎞️ GIF";
+
+  }
+
+  return texto || "Sin mensaje";
 
 }
 

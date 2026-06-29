@@ -2,8 +2,8 @@
 
 import "./VideoMessage.css";
 
-import MessageStatus
-from "../../message-bubble/MessageStatus";
+import MessageReaction from "../../message-reaction/MessageReaction";
+import MessageStatus from "../../message-bubble/MessageStatus";
 
 type Props = {
   message: any;
@@ -21,15 +21,11 @@ export default function VideoMessage({
         : ""
     );
 
-  if (!videoSrc) {
-    return null;
-  }
+  if (!videoSrc) return null;
 
   const hora =
     message.created_at
-      ? new Date(
-          message.created_at
-        ).toLocaleTimeString(
+      ? new Date(message.created_at).toLocaleTimeString(
           "es-CO",
           {
             hour: "2-digit",
@@ -37,6 +33,14 @@ export default function VideoMessage({
           }
         )
       : "";
+
+  const caption =
+    message.mensaje?.trim() || "";
+
+  const mostrarCaption =
+    caption &&
+    !caption.startsWith("{") &&
+    !caption.startsWith("[");
 
   return (
 
@@ -51,17 +55,40 @@ export default function VideoMessage({
       <div className="video-bubble">
 
         <video
+
           controls
+
           preload="metadata"
+
+          playsInline
+
           className="chat-video"
+
         >
-          <source src={videoSrc} />
+
+          <source
+            src={videoSrc}
+            type="video/mp4"
+          />
+
         </video>
+
+        {mostrarCaption && (
+
+          <div className="video-caption">
+
+            {caption}
+
+          </div>
+
+        )}
 
         <div className="video-footer">
 
           <span className="video-time">
+
             {hora}
+
           </span>
 
           <MessageStatus
@@ -70,6 +97,10 @@ export default function VideoMessage({
           />
 
         </div>
+
+        <MessageReaction
+          reaction={message.reaction}
+        />
 
       </div>
 
