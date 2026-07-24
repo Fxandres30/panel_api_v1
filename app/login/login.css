@@ -1,52 +1,37 @@
+/* ===========================
+   Página
+=========================== */
+
 .login-page {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-
-  background:
-    radial-gradient(
-      circle at top,
-      #1e293b,
-      #0f172a
-    );
-
   padding: 20px;
+
+  background: radial-gradient(circle at top, #1e293b, #0f172a);
 }
+
+/* ===========================
+   Tarjeta
+=========================== */
 
 .login-card {
   width: 100%;
   max-width: 420px;
 
-  background: rgba(
-    255,
-    255,
-    255,
-    0.06
-  );
+  padding: 40px;
 
-  backdrop-filter: blur(15px);
-
-  border: 1px solid rgba(
-    255,
-    255,
-    255,
-    0.1
-  );
+  text-align: center;
 
   border-radius: 20px;
 
-  padding: 40px;
+  background: rgba(255,255,255,.06);
+  backdrop-filter: blur(15px);
 
-  box-shadow:
-    0 20px 40px rgba(
-      0,
-      0,
-      0,
-      0.3
-    );
+  border: 1px solid rgba(255,255,255,.08);
 
-  text-align: center;
+  box-shadow: 0 20px 40px rgba(0,0,0,.35);
 }
 
 .login-logo {
@@ -55,9 +40,9 @@
 }
 
 .login-card h1 {
-  color: white;
-  margin-bottom: 8px;
+  color: #fff;
   font-size: 32px;
+  margin-bottom: 8px;
 }
 
 .login-card p {
@@ -65,34 +50,86 @@
   margin-bottom: 30px;
 }
 
-.login-card input {
+/* ===========================
+   Contraseña
+=========================== */
+
+.password-container {
+  position: relative;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.password-container input {
   width: 100%;
 
-  padding: 14px 16px;
+  height: 52px;
 
-  border-radius: 12px;
-
-  border: 1px solid #334155;
+  padding: 0 50px 0 16px;
 
   background: #0f172a;
 
   color: white;
 
+  border: 1px solid #334155;
+
+  border-radius: 12px;
+
   font-size: 15px;
 
-  margin-bottom: 16px;
-
   outline: none;
+
+  transition: .25s;
+
+  box-sizing: border-box;
 }
 
-.login-card input:focus {
+.password-container input:focus {
   border-color: #3b82f6;
 }
 
-.login-card button {
+/* ===========================
+   Botón del ojo
+=========================== */
+
+.toggle-password {
+  position: absolute;
+
+  top: 50%;
+  right: 15px;
+
+  transform: translateY(-50%);
+
+  width: 24px;
+  height: 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+  margin: 0;
+
+  border: none;
+  background: transparent;
+
+  color: #94a3b8;
+
+  cursor: pointer;
+}
+
+.toggle-password:hover {
+  color: #ffffff;
+}
+
+/* ===========================
+   Botón Ingresar
+=========================== */
+
+.login-btn {
   width: 100%;
 
-  padding: 14px;
+  height: 52px;
 
   border: none;
 
@@ -103,32 +140,30 @@
   color: white;
 
   font-size: 16px;
-
   font-weight: 600;
 
   cursor: pointer;
 
-  transition: 0.2s;
+  transition: .25s;
 }
 
-.login-card button:hover {
-  transform: translateY(-2px);
+.login-btn:hover {
   background: #1d4ed8;
+  transform: translateY(-2px);
 }
+
+/* ===========================
+   Error
+=========================== */
 
 .error {
-  margin-top: 15px;
+  margin-top: 18px;
 
-  padding: 10px;
+  padding: 12px;
 
   border-radius: 10px;
 
-  background: rgba(
-    239,
-    68,
-    68,
-    0.15
-  );
+  background: rgba(239,68,68,.15);
 
   color: #f87171;
 }
