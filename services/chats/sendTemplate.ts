@@ -1,38 +1,77 @@
 type Props = {
   telefono: string;
   template: string;
+  language: string;
+  parameters?: string[];
 };
 
 const API_URL =
-  "https://efaat.com";
+  process.env.NEXT_PUBLIC_API_URL!;
 
 export async function sendTemplate({
   telefono,
-  template
+  template,
+  language,
+  parameters = []
 }: Props) {
 
-  const response =
-    await fetch(
+  try {
+
+    const response = await fetch(
 
       `${API_URL}/meta/send-template`,
 
       {
+
         method: "POST",
 
         headers: {
-          "Content-Type":
-            "application/json"
+          "Content-Type": "application/json"
         },
 
         body: JSON.stringify({
+
           telefono,
-          template
+
+          template,
+
+          language,
+
+          parameters
+
         })
 
       }
 
     );
 
-  return response.json();
+    const data = await response.json();
+
+    if (!response.ok) {
+
+      throw new Error(
+
+        typeof data?.message === "string"
+          ? data.message
+          : JSON.stringify(data?.message ?? data)
+
+      );
+
+    }
+
+    return data;
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "Error enviando plantilla:",
+      error
+    );
+
+    throw error;
+
+  }
 
 }

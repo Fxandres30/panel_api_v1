@@ -1,129 +1,128 @@
 "use client";
 
+import { useEffect, useMemo, useState } from "react";
+
 import "./TemplatePicker.css";
 
+import { Template } from "./types";
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL!;
+
 type Props = {
-  onSelect: (
-    template: string
-  ) => void;
+  onSelect: (template: Template) => void;
 };
-
-const templates = [
-
-  {
-    nombre:
-      "bienvenida_efaat_v1",
-    descripcion:
-      "Mensaje de bienvenida",
-    categoria:
-      "MARKETING"
-  },
-
-  {
-    nombre:
-      "ganador_info_v1",
-    descripcion:
-      "Notificar ganador",
-    categoria:
-      "MARKETING"
-  },
-
-  {
-    nombre:
-      "cobro_recordatorio_numeros",
-    descripcion:
-      "Recordatorio de pago",
-    categoria:
-      "UTILITY"
-  },
-
-  {
-    nombre:
-      "acceso_a_grupos_v1",
-    descripcion:
-      "Enviar acceso a grupos",
-    categoria:
-      "UTILITY"
-  },
-
-  {
-    nombre:
-      "inicio_conversacion",
-    descripcion:
-      "Abrir conversación",
-    categoria:
-      "UTILITY"
-  },
-
-  {
-    nombre:
-      "comprobante_recibido",
-    descripcion:
-      "Confirmar comprobante",
-    categoria:
-      "UTILITY"
-  },
-
-  {
-    nombre:
-      "hello_world",
-    descripcion:
-      "Prueba Meta",
-    categoria:
-      "UTILITY"
-  }
-
-];
 
 export default function TemplatePicker({
   onSelect
 }: Props) {
 
+  const [search, setSearch] = useState("");
+
+  const [templates, setTemplates] = useState<Template[]>([]);
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+
+    cargarTemplates();
+
+  }, []);
+
+  async function cargarTemplates() {
+
+    try {
+
+      console.log("API_URL:", API_URL);
+      console.log("URL:", `${API_URL}/meta/templates`);
+
+      const res = await fetch(
+        `${API_URL}/meta/templates`
+      );
+
+      console.log("STATUS:", res.status);
+
+      const data = await res.json();
+
+      console.log("DATA:", data);
+
+      setTemplates(data);
+
+    }
+
+    catch (err) {
+
+      console.error("ERROR:", err);
+
+    }
+
+    finally {
+
+      setLoading(false);
+
+    }
+
+  }
+
+  const filtered = useMemo(() => {
+
+    return templates.filter((t) =>
+
+      t.nombre
+        .toLowerCase()
+        .includes(search.toLowerCase())
+
+    );
+
+  }, [templates, search]);
+
   return (
 
     <div className="template-picker">
 
-      <div className="template-header">
-        📋 Plantillas disponibles
-      </div>
+      <input
+        className="template-search"
+        placeholder="Buscar plantilla..."
+        value={search}
+        onChange={(e) =>
+          setSearch(e.target.value)
+        }
+      />
 
-      <div className="template-list">
+      {loading && (
 
-        {templates.map(
-          (template) => (
+        <div className="template-loading">
+          Cargando plantillas...
+        </div>
 
-            <button
-              key={template.nombre}
-              className="template-item"
-              onClick={() =>
-                onSelect(
-                  template.nombre
-                )
-              }
-            >
+      )}
 
-              <div className="template-top">
+      {!loading && filtered.length === 0 && (
 
-                <span className="template-name">
-                  {template.nombre}
-                </span>
+        <div className="template-loading">
+          No hay plantillas disponibles.
+        </div>
 
-                <span className="template-category">
-                  {template.categoria}
-                </span>
+      )}
 
-              </div>
+      {!loading && filtered.map((template) => (
 
-              <div className="template-description">
-                {template.descripcion}
-              </div>
+        <div
+          key={template.nombre}
+          className="template-item"
+          onClick={() => onSelect(template)}
+        >
 
-            </button>
+          <div className="template-name">
+            {template.nombre}
+          </div>
 
-          )
-        )}
+          <div className="template-description">
+            {template.descripcion}
+          </div>
 
-      </div>
+        </div>
+
+      ))}
 
     </div>
 

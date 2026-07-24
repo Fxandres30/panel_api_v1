@@ -4,6 +4,8 @@ type Props = {
   archivo?: File | null;
 };
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL!;
+
 export async function sendMessage({
   telefono,
   mensaje,
@@ -18,13 +20,8 @@ export async function sendMessage({
     formData.append("mensaje", mensaje);
     formData.append("file", archivo);
 
-    console.log("=========== ENVIANDO MEDIA ===========");
-    console.log("Nombre:", archivo.name);
-    console.log("Tipo:", archivo.type);
-    console.log("Tamaño:", archivo.size);
-
     const response = await fetch(
-      "https://efaat.com/meta/send-media",
+      `${API_URL}/meta/send-media`,
       {
         method: "POST",
         body: formData,
@@ -33,22 +30,17 @@ export async function sendMessage({
 
     const data = await response.json();
 
-    console.log("RESPUESTA MEDIA:", data);
-
     if (!response.ok) {
-
       throw new Error(
         data.message || "Error enviando archivo"
       );
-
     }
 
     return data;
-
   }
 
   const response = await fetch(
-    "/api/send-message",
+    `${API_URL}/meta/send-message`,
     {
       method: "POST",
       headers: {
@@ -63,16 +55,11 @@ export async function sendMessage({
 
   const data = await response.json();
 
-  console.log("RESPUESTA TEXTO:", data);
-
   if (!response.ok) {
-
     throw new Error(
       data.message || "Error enviando mensaje"
     );
-
   }
 
   return data;
-
 }

@@ -1,11 +1,21 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 import "./TemplatePreview.css";
 
+type Template = {
+  nombre: string;
+  descripcion: string;
+  body: string;
+  variables: string[];
+};
+
 type Props = {
-  template: string | null;
+  template: Template | null;
   onSend: (
-    template: string
+    template: string,
+    parameters: string[]
   ) => void;
 };
 
@@ -14,8 +24,28 @@ export default function TemplatePreview({
   onSend
 }: Props) {
 
+  const [values, setValues] = useState<string[]>([]);
+
+  useEffect(() => {
+
+    if (!template) {
+
+      setValues([]);
+
+      return;
+
+    }
+
+    setValues(
+      template.variables.map(() => "")
+    );
+
+  }, [template]);
+
   if (!template) {
+
     return null;
+
   }
 
   return (
@@ -26,24 +56,69 @@ export default function TemplatePreview({
         📋 PLANTILLA
       </div>
 
-      <div className="template-preview-name">
-        {template}
+      <h3 className="template-preview-name">
+        {template.nombre}
+      </h3>
+
+      <div className="template-preview-body">
+        {template.body}
       </div>
 
-      <div className="template-preview-text">
+      {template.variables.length > 0 && (
 
-        Vista previa de la plantilla seleccionada.
-        Próximamente aquí aparecerán las variables,
-        encabezados, botones y contenido real
-        cargado desde Meta.
+        <div className="template-variables">
 
-      </div>
+          {template.variables.map((variable, index) => (
+
+            <input
+              key={index}
+              className="template-input"
+              placeholder={variable}
+              value={values[index] ?? ""}
+              onChange={(e) => {
+
+                const copy = [...values];
+
+                copy[index] = e.target.value;
+
+                setValues(copy);
+
+              }}
+            />
+
+          ))}
+
+        </div>
+
+      )}
 
       <button
         className="template-send-button"
-        onClick={() =>
-          onSend(template)
-        }
+        onClick={() => {
+
+          const incompletos = values.some(
+            value => value.trim() === ""
+          );
+
+          if (
+            template.variables.length > 0 &&
+            incompletos
+          ) {
+
+            alert(
+              "Debes completar todas las variables."
+            );
+
+            return;
+
+          }
+
+          onSend(
+            template.nombre,
+            values
+          );
+
+        }}
       >
         📨 Enviar plantilla
       </button>
