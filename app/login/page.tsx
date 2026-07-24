@@ -2,54 +2,75 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, Loader2 } from "lucide-react";
 import "./login.css";
 
 export default function LoginPage() {
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-
   const router = useRouter();
 
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
   async function login() {
-    setError("");
+    if (loading) return;
 
-    const res = await fetch("/api/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ password }),
-    });
-
-    if (!res.ok) {
-      setError("Contraseña incorrecta");
+    if (!password.trim()) {
+      setError("Ingresa la contraseña.");
       return;
     }
 
-    router.push("/admin/chats");
+    setLoading(true);
+    setError("");
+
+    try {
+      const res = await fetch("/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ password }),
+      });
+
+      if (!res.ok) {
+        setError("Contraseña incorrecta.");
+        return;
+      }
+
+      router.push("/admin/chats");
+    } catch {
+      setError("No fue posible conectar con el servidor.");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
-    <div className="login-page">
+    <main className="login-page">
       <div className="login-card">
-        <div className="login-logo">🎯</div>
+
+        <div className="login-logo">
+          🎯
+        </div>
 
         <h1>EFAAT CRM</h1>
 
-        <p>Acceso privado al panel administrativo</p>
+        <p>
+          Bienvenido nuevamente. Ingresa tu contraseña para continuar.
+        </p>
 
         <div className="password-container">
+
           <input
+            autoFocus
             type={showPassword ? "text" : "password"}
-            placeholder="Ingresa tu contraseña"
+            placeholder="Contraseña"
             value={password}
+            disabled={loading}
             onChange={(e) => setPassword(e.target.value)}
             onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                login();
-              }
+              if (e.key === "Enter") login();
             }}
           />
 
@@ -57,11 +78,6 @@ export default function LoginPage() {
             type="button"
             className="toggle-password"
             onClick={() => setShowPassword(!showPassword)}
-            aria-label={
-              showPassword
-                ? "Ocultar contraseña"
-                : "Mostrar contraseña"
-            }
           >
             {showPassword ? (
               <EyeOff size={20} />
@@ -69,22 +85,40 @@ export default function LoginPage() {
               <Eye size={20} />
             )}
           </button>
+
         </div>
 
         <button
-          type="button"
           className="login-btn"
           onClick={login}
+          disabled={loading}
         >
-          Ingresar
+          {loading ? (
+            <>
+              <Loader2
+                size={18}
+                className="spin"
+              />
+              Verificando...
+            </>
+          ) : (
+            "Ingresar"
+          )}
         </button>
+
+        {loading && (
+          <div className="loading-text">
+            Verificando credenciales...
+          </div>
+        )}
 
         {error && (
           <div className="error">
             {error}
           </div>
         )}
+
       </div>
-    </div>
+    </main>
   );
 }
