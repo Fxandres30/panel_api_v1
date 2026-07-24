@@ -13,8 +13,7 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
 
-  const [sidebarOpen, setSidebarOpen] =
-    useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
 
@@ -22,14 +21,15 @@ export default function AdminLayout({
 
       <Topbar
         onToggleSidebar={() =>
-          setSidebarOpen(
-            !sidebarOpen
-          )
+          setSidebarOpen(!sidebarOpen)
         }
       />
 
       <Sidebar
         open={sidebarOpen}
+        onClose={() =>
+          setSidebarOpen(false)
+        }
       />
 
       <main className="admin-content">
@@ -39,5 +39,4 @@ export default function AdminLayout({
     </div>
 
   );
-
 }

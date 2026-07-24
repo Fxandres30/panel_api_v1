@@ -1,53 +1,75 @@
-.topbar{
-  position:fixed;
+.topbar {
+  height: 70px;
 
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 20px;
+
+  background: #081226;
+
+  border-bottom: 1px solid rgba(255,255,255,.08);
+
+  position: sticky;
   top: 0;
-  left:0;
-  right:0;
 
-  height:60px;
-
-  display:flex;
-  align-items:center;
-
-  gap:10px;
-
-  padding:0 16px;
-
-  background:#081225;
-
-  border-bottom:1px solid rgba(255,255,255,.05);
-
-  z-index:1000;
+  z-index: 100;
 }
 
-.topbar-menu{
-  width:40px;
-  height:40px;
+.topbar-menu {
+  width: 42px;
+  height: 42px;
 
-  border:none;
-  border-radius:10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  background:transparent;
+  border: none;
+  border-radius: 10px;
 
-  color:#ffffff;
+  background: transparent;
 
-  font-size:22px;
+  color: white;
 
-  cursor:pointer;
+  cursor: pointer;
 
-  transition:.2s;
+  transition: .2s;
 }
 
-.topbar-menu:hover{
-  background:rgba(255,255,255,.08);
+.topbar-menu:hover {
+  background: rgba(255,255,255,.08);
 }
 
-.topbar-logo{
-  color:white;
+.topbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 
-  font-size:18px;
-  font-weight:700;
+  color: white;
 
-  letter-spacing:.5px;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.topbar-user {
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+
+  border-radius: 50%;
+
+  background: linear-gradient(135deg,#2563eb,#1d4ed8);
+
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: bold;
 }
